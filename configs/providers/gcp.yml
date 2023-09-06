@@ -1,0 +1,7 @@
+name: google
+stage: ${opt:stage,'dev'}
+runtime: nodejs16
+region: us-east1
+project: ${self:custom.project_id}
+credentials: ~/.gcloud/keyfile.json
+environment: ${file(configs/environment.yml)}

@@ -33,4 +33,15 @@ export class LoginRepository implements LoginRepositoryContract {
       throw new Error(`Erro ao buscar usuário por ID: ${error.message}`);
     }
   }
+
+  public async updateLastSessionDate(user: User): Promise<void> {
+    try {
+      await this.userModel.updateOne(
+        { id: user.id },
+        { $set: { lastSessionDate: user.lastSessionDate } },
+      );
+    } catch (error) {
+      throw new Error(`Erro ao buscar usuário por ID: ${error.message}`);
+    }
+  }
 }

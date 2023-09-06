@@ -1,0 +1,4 @@
+commands:
+  make-public: gcloud functions add-iam-policy-binding ${self:service}-${self:provider.stage}-HttpHandler --member="allUsers" --role="roles/cloudfunctions.invoker" --project=${self:provider.project} --region=${self:provider.region}
+hooks:
+  'after:deploy:deploy': npx sls make-public --stage ${self:provider.stage}

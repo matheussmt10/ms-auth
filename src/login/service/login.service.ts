@@ -24,6 +24,8 @@ export class LoginService implements LoginServiceContract {
       }
       userVerify.lastSessionDate = new Date();
 
+      await this.repository.updateLastSessionDate(userVerify);
+
       return [{ message: 'User logged', status: true }];
     } catch (error) {
       throw new HttpException(

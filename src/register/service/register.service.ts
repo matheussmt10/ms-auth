@@ -1,25 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { RegisterServiceContract } from './register.service.contract';
 import { RegisterRepositoryContract } from '../repository/register.repository.contract';
 import { AppEnvs } from 'src/configs';
+import { User } from 'src/schema/user.schema';
+import { CreateUserRegisterDto } from '../dto/create-register.dto';
 
 @Injectable()
 export class RegisterService implements RegisterServiceContract {
   constructor(private readonly repository: RegisterRepositoryContract) {}
-  public async createNewAccount(user) {
+  public async createNewAccount(user: CreateUserRegisterDto) {
     try {
       const isUserExist = await this.repository.findOneByEmail(user.email);
       if (isUserExist) {
-        throw new Error('This email already exists');
+        throw new HttpException(
+          'This email already exists',
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       if (user.password !== user.confirmPassword) {
-        throw new Error('Password and Confirm Password is not match');
+        throw new HttpException(
+          'Password and Confirm Password is not match',
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
-      const newUser = {
+      const newUser: User = {
         id: uuidv4(),
         name: user.name,
         email: user.email,
@@ -27,6 +35,7 @@ export class RegisterService implements RegisterServiceContract {
           user.password,
           await bcrypt.genSalt(AppEnvs.SALT_HASH),
         ),
+        lastSessionDate: null,
       };
 
       await this.repository.insert(newUser);
@@ -36,7 +45,10 @@ export class RegisterService implements RegisterServiceContract {
         data: newUser,
       };
     } catch (error) {
-      throw new Error(`Error to create new account: ${error.message}`);
+      throw new HttpException(
+        error.message,
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

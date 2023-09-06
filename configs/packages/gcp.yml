@@ -1,0 +1,7 @@
+include:
+  - .build/**/*
+exclude:
+  - node_modules/**
+  - gitignore
+  - .git/**
+  - .github/**

@@ -1,0 +1,26 @@
+resources:
+  - type: storage.v1.bucket
+    name: sls-ms-auth-v2-prd-1693962582111
+    properties:
+      location: us-east1
+  - type: gcp-types/cloudfunctions-v1:projects.locations.functions
+    name: ms-auth-v2-prd-HttpHandler
+    properties:
+      parent: projects/m-services-395301/locations/us-east1
+      availableMemoryMb: 128
+      runtime: nodejs16
+      timeout: 30s
+      entryPoint: httpHandler
+      function: ms-auth-v2-prd-HttpHandler
+      sourceArchiveUrl: >-
+        gs://sls-ms-auth-v2-prd-1693962582111/serverless/ms-auth-v2/prd/1694015395916-2023-09-06T15:49:55.916Z/ms-auth-v2.zip
+      environmentVariables:
+        NODE_ENV: production
+        LOG_LEVEL: info
+        CLOUD_PROVIDER: gcp
+        PROJECT_ID: m-services-395301
+        SALT_HASH: '12'
+        SERVERLESS_EXPRESS_PLATFORM: google
+      labels: {}
+      httpsTrigger:
+        url: path

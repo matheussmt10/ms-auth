@@ -1,0 +1,6 @@
+HttpHandler:
+  handler: httpHandler
+  memorySize: 128
+  timeout: 30s
+  events:
+    - http: path

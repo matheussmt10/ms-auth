@@ -1,0 +1,11 @@
+service: ms-auth-v2
+
+provider: ${file(configs/providers/${self:custom.cloud_provider}.yml)}
+
+package: ${file(configs/packages/${self:custom.cloud_provider}.yml)}
+
+custom: ${file(configs/custom.yml)}
+
+functions: ${file(configs/functions/${self:custom.cloud_provider}.yml)}
+
+plugins: ${file(configs/plugins/${self:custom.cloud_provider}.yml)}

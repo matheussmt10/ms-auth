@@ -1,5 +1,7 @@
-export abstract class RegisterRepositoryContract {
-  abstract findOneByEmail(email: string): Promise<object | null>;
+import { User } from 'src/schema/user.schema';
 
-  abstract insert(body: object): Promise<void>;
+export abstract class RegisterRepositoryContract {
+  abstract findOneByEmail(email: string): Promise<User | null>;
+
+  abstract insert(user: User): Promise<void>;
 }

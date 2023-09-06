@@ -1,0 +1,5 @@
+resources:
+  - type: storage.v1.bucket
+    name: sls-ms-auth-v2-prd-1693962582111
+    properties:
+      location: us-east1
