@@ -1,0 +1,5 @@
+NODE_ENV: ${self:custom.node_envs.${self:provider.stage}}
+LOG_LEVEL: ${self:custom.log_level.${self:provider.stage}}
+CLOUD_PROVIDER: ${self:custom.cloud_provider}
+PROJECT_ID: ${self:custom.project_id}
+SALT_HASH: ${self:custom.salt_hash.${self:provider.stage}}

@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AppEnvs } from './configs';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://mathcode:UllOGkENxqlJOhwW@cluster0.fvmu2kl.mongodb.net/sistemas',
-    ),
+    MongooseModule.forRoot(AppEnvs.AUTH_DB_MONGO),
     LoginModule,
     RegisterModule,
   ],
