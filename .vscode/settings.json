@@ -1,0 +1,8 @@
+{
+  "eslint.options": {
+    "extensions": [".ts"]
+  },
+  "eslint.validate": ["typescript"],
+  "editor.tabSize": 2,
+  "files.eol": "\n"
+}
