@@ -27,3 +27,6 @@ salt_hash:
   dev: 12
   hml: 12
   prd: 12
+
+x_api_key:
+  prd: 'dbb4b052-23b9-48c4-b885-9751d8be0dc5'
