@@ -3,3 +3,4 @@ LOG_LEVEL: ${self:custom.log_level.${self:provider.stage}}
 CLOUD_PROVIDER: ${self:custom.cloud_provider}
 PROJECT_ID: ${self:custom.project_id}
 SALT_HASH: ${self:custom.salt_hash.${self:provider.stage}}
+X_API_KEY: ${self:custom.x_api_key.${self:provider.stage}}

@@ -13,13 +13,14 @@ resources:
       entryPoint: httpHandler
       function: ms-auth-v2-prd-HttpHandler
       sourceArchiveUrl: >-
-        gs://sls-ms-auth-v2-prd-1693962582111/serverless/ms-auth-v2/prd/1694015395916-2023-09-06T15:49:55.916Z/ms-auth-v2.zip
+        gs://sls-ms-auth-v2-prd-1693962582111/serverless/ms-auth-v2/prd/1694111382295-2023-09-07T18:29:42.295Z/ms-auth-v2.zip
       environmentVariables:
         NODE_ENV: production
         LOG_LEVEL: info
         CLOUD_PROVIDER: gcp
         PROJECT_ID: m-services-395301
         SALT_HASH: '12'
+        X_API_KEY: dbb4b052-23b9-48c4-b885-9751d8be0dc5
         SERVERLESS_EXPRESS_PLATFORM: google
       labels: {}
       httpsTrigger:
