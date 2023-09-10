@@ -6,4 +6,6 @@ export abstract class SocialAuthRepositoryContract {
   abstract insert(user: User): Promise<void>;
 
   abstract getGoogleIdByEmail(email: string): Promise<string>;
+
+  abstract updateLastSessionDate(user: User): Promise<void>;
 }

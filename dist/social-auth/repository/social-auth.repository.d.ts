@@ -7,4 +7,5 @@ export declare class SocialAuthRepository implements SocialAuthRepositoryContrac
     getGoogleIdByEmail(email: string): Promise<string>;
     findOneByEmail(email: string): Promise<User | null>;
     insert(body: object): Promise<void>;
+    updateLastSessionDate(user: User): Promise<void>;
 }

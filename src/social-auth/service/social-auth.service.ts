@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
@@ -7,9 +8,11 @@ import { AppEnvs } from 'src/configs';
 import { User } from 'src/schema/user.schema';
 import { CreateUserSocialAuthDto } from '../dto/create-social-auth.dto';
 import * as generator from 'generate-password';
+
 @Injectable()
 export class SocialAuthService implements SocialAuthServiceContract {
   constructor(private readonly repository: SocialAuthRepositoryContract) {}
+
   public async loginWithSocialAuth(user: CreateUserSocialAuthDto) {
     const passwordOptions = {
       length: 12,
@@ -18,9 +21,11 @@ export class SocialAuthService implements SocialAuthServiceContract {
       uppercase: true,
       excludeSimilarCharacters: true,
     };
+
     try {
-      const isUserExist = await this.repository.findOneByEmail(user.email);
-      if (!isUserExist) {
+      let userExisted = await this.repository.findOneByEmail(user.email);
+
+      if (!userExisted) {
         const newUser: User = {
           uuid: uuidv4(),
           name: user.name,
@@ -35,10 +40,14 @@ export class SocialAuthService implements SocialAuthServiceContract {
             userPhotoUrl: user.userPhoto,
           },
         };
+
         await this.repository.insert(newUser);
+        userExisted = newUser;
       }
-      const userGoogleId = await this.repository.getGoogleIdByEmail(user.email);
-      if (userGoogleId === user.googleId) {
+
+      if (userExisted.googleAuth.id === user.googleId) {
+        userExisted.lastSessionDate = new Date();
+        await this.repository.updateLastSessionDate(userExisted);
         return {
           message: 'User logged',
           status: true,

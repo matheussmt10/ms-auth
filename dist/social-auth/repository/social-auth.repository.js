@@ -49,6 +49,14 @@ let SocialAuthRepository = class SocialAuthRepository {
             });
         }
     }
+    async updateLastSessionDate(user) {
+        try {
+            await this.userModel.updateOne({ uuid: user.uuid }, { $set: { lastSessionDate: user.lastSessionDate } });
+        }
+        catch (error) {
+            throw new Error(`Erro ao buscar usuário por ID: ${error.message}`);
+        }
+    }
 };
 exports.SocialAuthRepository = SocialAuthRepository;
 exports.SocialAuthRepository = SocialAuthRepository = __decorate([

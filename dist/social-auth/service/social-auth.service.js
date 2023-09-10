@@ -29,8 +29,8 @@ let SocialAuthService = class SocialAuthService {
             excludeSimilarCharacters: true,
         };
         try {
-            const isUserExist = await this.repository.findOneByEmail(user.email);
-            if (!isUserExist) {
+            let userExisted = await this.repository.findOneByEmail(user.email);
+            if (!userExisted) {
                 const newUser = {
                     uuid: (0, uuid_1.v4)(),
                     name: user.name,
@@ -43,9 +43,11 @@ let SocialAuthService = class SocialAuthService {
                     },
                 };
                 await this.repository.insert(newUser);
+                userExisted = newUser;
             }
-            const userGoogleId = await this.repository.getGoogleIdByEmail(user.email);
-            if (userGoogleId === user.googleId) {
+            if (userExisted.googleAuth.id === user.googleId) {
+                userExisted.lastSessionDate = new Date();
+                await this.repository.updateLastSessionDate(userExisted);
                 return {
                     message: 'User logged',
                     status: true,
