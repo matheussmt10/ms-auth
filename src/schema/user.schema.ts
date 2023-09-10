@@ -6,7 +6,7 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({ collection: 'users', timestamps: true })
 export class User {
   @Prop({ required: true })
-  id: string;
+  uuid: string;
 
   @Prop({ required: true })
   email: string;
@@ -19,6 +19,12 @@ export class User {
 
   @Prop()
   lastSessionDate: Date;
+
+  @Prop()
+  googleAuth: {
+    id: string;
+    userPhotoUrl: string;
+  };
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

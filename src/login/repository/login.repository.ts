@@ -37,7 +37,7 @@ export class LoginRepository implements LoginRepositoryContract {
   public async updateLastSessionDate(user: User): Promise<void> {
     try {
       await this.userModel.updateOne(
-        { id: user.id },
+        { uuid: user.uuid },
         { $set: { lastSessionDate: user.lastSessionDate } },
       );
     } catch (error) {
