@@ -12,6 +12,7 @@ const login_module_1 = require("./login/login.module");
 const register_module_1 = require("./register/register.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const configs_1 = require("./configs");
+const social_auth_module_1 = require("./social-auth/social-auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -21,6 +22,7 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot(configs_1.AppEnvs.AUTH_DB_MONGO),
             login_module_1.LoginModule,
             register_module_1.RegisterModule,
+            social_auth_module_1.SocialAuthModule,
         ],
     })
 ], AppModule);

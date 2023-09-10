@@ -29,7 +29,7 @@ let RegisterService = class RegisterService {
                 throw new common_1.HttpException('Password and Confirm Password is not match', common_1.HttpStatus.BAD_REQUEST);
             }
             const newUser = {
-                id: (0, uuid_1.v4)(),
+                uuid: (0, uuid_1.v4)(),
                 name: user.name,
                 email: user.email,
                 password: await bcrypt.hash(user.password, await bcrypt.genSalt(configs_1.AppEnvs.SALT_HASH)),

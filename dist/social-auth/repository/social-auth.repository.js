@@ -12,32 +12,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginRepository = void 0;
+exports.SocialAuthRepository = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("../../schema/user.schema");
 const mongoose_2 = require("mongoose");
-let LoginRepository = class LoginRepository {
+let SocialAuthRepository = class SocialAuthRepository {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    async findAll() {
+    async getGoogleIdByEmail(email) {
         try {
-            const result = await this.userModel.find();
-            return result;
+            const result = await this.userModel.findOne({ email });
+            return result.googleAuth.id;
         }
-        catch (error) {
-            throw new Error(`Erro ao buscar todos os usuários: ${error.message}`);
-        }
-    }
-    async findOne(id) {
-        try {
-            const result = await this.userModel.findOne({ where: { id } });
-            return result;
-        }
-        catch (error) {
-            throw new Error(`Erro ao buscar usuário por ID: ${error.message}`);
-        }
+        catch (error) { }
     }
     async findOneByEmail(email) {
         try {
@@ -45,22 +34,26 @@ let LoginRepository = class LoginRepository {
             return result;
         }
         catch (error) {
-            throw new Error(`Erro ao buscar usuário por ID: ${error.message}`);
+            throw new common_1.HttpException('Find user failed', common_1.HttpStatus.BAD_REQUEST, {
+                cause: error.message,
+            });
         }
     }
-    async updateLastSessionDate(user) {
+    async insert(body) {
         try {
-            await this.userModel.updateOne({ uuid: user.uuid }, { $set: { lastSessionDate: user.lastSessionDate } });
+            await this.userModel.create(body);
         }
         catch (error) {
-            throw new Error(`Erro ao buscar usuário por ID: ${error.message}`);
+            throw new common_1.HttpException('Inser user failed', common_1.HttpStatus.BAD_REQUEST, {
+                cause: error.message,
+            });
         }
     }
 };
-exports.LoginRepository = LoginRepository;
-exports.LoginRepository = LoginRepository = __decorate([
+exports.SocialAuthRepository = SocialAuthRepository;
+exports.SocialAuthRepository = SocialAuthRepository = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], LoginRepository);
-//# sourceMappingURL=login.repository.js.map
+], SocialAuthRepository);
+//# sourceMappingURL=social-auth.repository.js.map

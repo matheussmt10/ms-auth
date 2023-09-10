@@ -28,7 +28,7 @@ export class RegisterService implements RegisterServiceContract {
       }
 
       const newUser: User = {
-        id: uuidv4(),
+        uuid: uuidv4(),
         name: user.name,
         email: user.email,
         password: await bcrypt.hash(

@@ -15,7 +15,7 @@ const createNestServer = async (expressInstance) => {
 };
 exports.createNestServer = createNestServer;
 (0, exports.createNestServer)(server)
-    .then()
+    .then((v) => v.listen(8080))
     .catch((err) => console.error('Nest broken', err));
 module.exports.httpHandler = server;
 //# sourceMappingURL=main.js.map

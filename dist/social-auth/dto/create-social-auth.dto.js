@@ -9,37 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = exports.User = void 0;
-const mongoose_1 = require("@nestjs/mongoose");
-let User = class User {
-};
-exports.User = User;
+exports.CreateUserSocialAuthDto = void 0;
+const class_validator_1 = require("class-validator");
+class CreateUserSocialAuthDto {
+}
+exports.CreateUserSocialAuthDto = CreateUserSocialAuthDto;
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], User.prototype, "uuid", void 0);
+], CreateUserSocialAuthDto.prototype, "email", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.MaxLength)(10),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], CreateUserSocialAuthDto.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], User.prototype, "name", void 0);
+], CreateUserSocialAuthDto.prototype, "googleId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", Date)
-], User.prototype, "lastSessionDate", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ type: Object }),
-    __metadata("design:type", Object)
-], User.prototype, "googleAuth", void 0);
-exports.User = User = __decorate([
-    (0, mongoose_1.Schema)({ collection: 'users', timestamps: true })
-], User);
-exports.UserSchema = mongoose_1.SchemaFactory.createForClass(User);
-//# sourceMappingURL=user.schema.js.map
+], CreateUserSocialAuthDto.prototype, "userPhoto", void 0);
+//# sourceMappingURL=create-social-auth.dto.js.map

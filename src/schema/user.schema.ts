@@ -20,8 +20,8 @@ export class User {
   @Prop()
   lastSessionDate: Date;
 
-  @Prop()
-  googleAuth: {
+  @Prop({ type: Object })
+  googleAuth?: {
     id: string;
     userPhotoUrl: string;
   };
