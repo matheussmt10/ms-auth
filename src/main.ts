@@ -15,7 +15,7 @@ export const createNestServer = async (expressInstance) => {
   return app.init();
 };
 createNestServer(server)
-  .then((v) => v.listen(8080))
+  .then()
   .catch((err) => console.error('Nest broken', err));
 
 module.exports.httpHandler = server;
