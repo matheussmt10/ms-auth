@@ -21,13 +21,6 @@ let SocialAuthService = class SocialAuthService {
         this.repository = repository;
     }
     async loginWithSocialAuth(user) {
-        const passwordOptions = {
-            length: 12,
-            numbers: true,
-            symbols: true,
-            uppercase: true,
-            excludeSimilarCharacters: true,
-        };
         try {
             let userExisted = await this.repository.findOneByEmail(user.email);
             if (!userExisted) {
@@ -35,7 +28,13 @@ let SocialAuthService = class SocialAuthService {
                     uuid: (0, uuid_1.v4)(),
                     name: user.name,
                     email: user.email,
-                    password: await bcrypt.hash(generator.generate(passwordOptions), await bcrypt.genSalt(configs_1.AppEnvs.SALT_HASH)),
+                    password: await bcrypt.hash(generator.generate({
+                        length: 12,
+                        numbers: true,
+                        symbols: true,
+                        uppercase: true,
+                        excludeSimilarCharacters: true,
+                    }), await bcrypt.genSalt(configs_1.AppEnvs.SALT_HASH)),
                     lastSessionDate: null,
                     googleAuth: {
                         id: user.googleId,

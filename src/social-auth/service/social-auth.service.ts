@@ -14,14 +14,6 @@ export class SocialAuthService implements SocialAuthServiceContract {
   constructor(private readonly repository: SocialAuthRepositoryContract) {}
 
   public async loginWithSocialAuth(user: CreateUserSocialAuthDto) {
-    const passwordOptions = {
-      length: 12,
-      numbers: true,
-      symbols: true,
-      uppercase: true,
-      excludeSimilarCharacters: true,
-    };
-
     try {
       let userExisted = await this.repository.findOneByEmail(user.email);
 
@@ -31,7 +23,13 @@ export class SocialAuthService implements SocialAuthServiceContract {
           name: user.name,
           email: user.email,
           password: await bcrypt.hash(
-            generator.generate(passwordOptions),
+            generator.generate({
+              length: 12,
+              numbers: true,
+              symbols: true,
+              uppercase: true,
+              excludeSimilarCharacters: true,
+            }),
             await bcrypt.genSalt(AppEnvs.SALT_HASH),
           ),
           lastSessionDate: null,
